@@ -101,6 +101,13 @@ class sqlServer:
         except:
             print("Insert INTO barang pass")
             pass
+            
+        try:
+            cursor.execute("CREATE TABLE history (ID_History int PRIMARY KEY NOT NULL AUTO_INCREMENT, FOREIGN KEY(ID_History) REFERENCES person(ID_Person) NOT NULL, FOREIGN KEY(ID_History) REFERENCES barang(ID_Barang) NOT NULL, Keterangan ENUM('Input', 'Output') NOT NULL, Jumlah int(255) NOT NULL, Tanggal datetime NOT NULL)")
+            print(cursor)
+        except:
+            print("CREATE TABLE history pass")
+            pass
 
 sqlServer()
-
+# os.system('cls')
