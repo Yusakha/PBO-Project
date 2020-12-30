@@ -11,5 +11,8 @@ class View:
     def done():
         print('Selesai~')
     @staticmethod
+    def inputError():
+        print("Inputan Salah")
+    @staticmethod
     def errors(arg):
         print("Ada yang Error :\n{}".format(arg))

@@ -2,6 +2,7 @@ from conect.sqlServer import connection
 from datetime import datetime
 from tabulate import tabulate
 from Views.text import View
+from getpass import getpass
 
 class start(connection):
     def __init__(self):
@@ -13,7 +14,7 @@ class start(connection):
             self.createDB() #First Step Only
             View.clear()
             uname = input("Masukkan Username: ").lower()
-            pword = input("Masukkan Password: ")
+            pword = getpass("Masukkan Password: ")
             tempNama = []
             tempUname = []
             tempPword = []
@@ -145,13 +146,18 @@ Jawab : """.format(self.namaUser))
 
         
     def createKaryawan(self):
-        self.nama = input("Masukkan Nama Karyawan : ").title()
-        self.umur = int(input("Masukkan umur Karyawan : "))
-        self.jenisKelamin = input("Masukkan jenis kelamin Karyawan (L/P) : ").upper()
-        self.role = "Karyawan"
-        self.username = input("Masukkan username Karyawan : ").lower()
-        self.password = input("Masukkan password Karyawan : ")
-        self.created = datetime.now()
+        while True:
+            try:
+                self.nama = input("Masukkan Nama Karyawan : ").title()
+                self.umur = int(input("Masukkan umur Karyawan : "))
+                self.jenisKelamin = input("Masukkan jenis kelamin Karyawan (L/P) : ").upper()
+                self.role = "Karyawan"
+                self.username = input("Masukkan username Karyawan : ").lower()
+                self.password = input("Masukkan password Karyawan : ")
+                self.created = datetime.now()
+                break
+            except:
+                View.inputError()
         sql = """INSERT INTO person (Nama , Umur , Jenis_Kelamin, Role ,
         username , password , created) VALUES (%s, %s, %s, %s, %s, %s, %s)"""
         val = (self.nama, self.umur, self.jenisKelamin, self.role, self.username, self.password, self.created)
@@ -168,15 +174,24 @@ Jawab : """.format(self.namaUser))
 
     def deleteKaryawan(self):
         self.showKaryawan()
-        jawabDelete = int(input("\nMasukkan id yang mau di hapus : "))
+        while True:
+            try:
+                jawabDelete = int(input("\nMasukkan id yang mau di hapus : "))
+            except:
+                View.inputError()
         sql = "DELETE FROM person WHERE ID_Person = {}".format(jawabDelete)
         self.fetchone(sql)
         return View.done()
 
     def ambilBarang(self):
         self.showBarang()
-        jawabID = int(input("\nMasukkan id yang mau di ambil : "))
-        jawabStok = int(input("Masukkan stock yang mau di ambil : "))
+        while True:
+            try:
+                jawabID = int(input("\nMasukkan id yang mau di ambil : "))
+                jawabStok = int(input("Masukkan stock yang mau di ambil : "))
+                break
+            except:
+                View.inputError()
         sql = """
         Select Jumlah_Barang
         FROM barang
@@ -211,11 +226,14 @@ Jawab : """.format(self.namaUser))
         return 
 
     def tambahBarang(self):
-        self.nama = input("Masukkan nama barang : ").title()
-        self.stok = int(input("Masukkan jumlah barang : "))
-        self.satuan = input("Masukkan nama satuannya : ").lower()
-        self.tanggal = input("Masukkan tanggal kadaluarsa barang (YYYY-MM-DD) : ")
-
+        while True:
+            try:
+                self.nama = input("Masukkan nama barang : ").title()
+                self.stok = int(input("Masukkan jumlah barang : "))
+                self.satuan = input("Masukkan nama satuannya : ").lower()
+                self.tanggal = input("Masukkan tanggal kadaluarsa barang (YYYY-MM-DD) : ")
+            except:
+                View.inputError()
         sql = """INSERT INTO barang (Nama_Barang , Jumlah_Barang , Satuan, Tanggal_Kadaluarsa)
         VALUES (%s, %s, %s, %s)"""
         val = (self.nama, self.stok, self.satuan, self.tanggal)
@@ -236,8 +254,12 @@ Jawab : """.format(self.namaUser))
 
     def tambahStokBarang(self):
         self.showBarang()
-        jawabID = int(input("\nMasukkan id yang mau di ambil : "))
-        jawabStok = int(input("Masukkan stock yang mau di ambil : "))
+        while True:
+            try:
+                jawabID = int(input("\nMasukkan id yang mau di ambil : "))
+                jawabStok = int(input("Masukkan stock yang mau di ambil : "))
+            except:
+                View.inputError()
         sql = """
         Select Jumlah_Barang
         FROM barang
