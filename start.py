@@ -20,7 +20,7 @@ class start(connection):
             tempRole = []
             tempUserID = []
             tempJ = 0
-            query = ('SELECT ID_Person, Nama, username, passwords, role FROM person')
+            query = ('SELECT ID_Person, Nama, username, password, role FROM person')
             for x in self.select_all(query):
                 tempUserID.append(x[0])
                 tempNama.append(x[1])
