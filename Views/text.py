@@ -22,6 +22,10 @@ class View:
         print("Inputan Salah")
 
     @staticmethod
+    def inputZero():
+        print("Inputan tidak boleh <= 0")
+
+    @staticmethod
     def errors(arg):
         print("Ada yang Error :\n{}".format(arg))
 

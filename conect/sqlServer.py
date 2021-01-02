@@ -20,7 +20,7 @@ class connection:
         print("\nExit. . .")
         return self.__con.close()
 
-    def select_all(self, query):
+    def fetchalll(self, query):
         try:
             self.__cursor.execute(query)
             res = self.__cursor.fetchall()
@@ -32,15 +32,6 @@ class connection:
         try:
             self.__cursor.execute(query)
             res = self.__cursor.fetchone()
-            self.__con.commit()
-            return res
-        except mysql.connector.Error as e:
-            View.errors(e)
-
-    def execute(self, query, val):
-        try:
-            self.__cursor.execute(query)
-            res = self.__cursor.fetchall()
             self.__con.commit()
             return res
         except mysql.connector.Error as e:
